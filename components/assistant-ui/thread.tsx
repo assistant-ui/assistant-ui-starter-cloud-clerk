@@ -111,11 +111,19 @@ const Composer: FC = () => {
   return (
     <ComposerPrimitive.Root className="focus-within:border-ring/20 flex w-full flex-wrap items-end rounded-lg border bg-inherit px-2.5 shadow-sm transition-colors ease-in">
       <ComposerPrimitive.Input
+        rows={1}
         autoFocus
         placeholder="Write a message..."
-        rows={1}
         className="placeholder:text-muted-foreground max-h-40 flex-grow resize-none border-none bg-transparent px-2 py-4 text-sm outline-none focus:ring-0 disabled:cursor-not-allowed"
       />
+      <ComposerAction />
+    </ComposerPrimitive.Root>
+  );
+};
+
+const ComposerAction: FC = () => {
+  return (
+    <>
       <ThreadPrimitive.If running={false}>
         <ComposerPrimitive.Send asChild>
           <TooltipIconButton
@@ -138,7 +146,7 @@ const Composer: FC = () => {
           </TooltipIconButton>
         </ComposerPrimitive.Cancel>
       </ThreadPrimitive.If>
-    </ComposerPrimitive.Root>
+    </>
   );
 };
 
@@ -146,8 +154,6 @@ const UserMessage: FC = () => {
   return (
     <MessagePrimitive.Root className="grid auto-rows-auto grid-cols-[minmax(72px,1fr)_auto] gap-y-2 [&>*]:col-start-2 max-w-aui-thread w-full py-4">
       <UserActionBar />
-
-      {/* <MessageAttachments > */}
 
       <div className="bg-muted text-foreground max-w-[calc(var(--thread-max-width)*0.8)] break-words rounded-3xl px-5 py-2.5 col-start-2 row-start-2">
         <MessagePrimitive.Content />
