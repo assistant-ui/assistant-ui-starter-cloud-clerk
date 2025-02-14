@@ -226,7 +226,7 @@ const AssistantActionBar: FC = () => {
       hideWhenRunning
       autohide="not-last"
       autohideFloat="single-branch"
-      className="text-muted-foreground flex gap-1 col-start-3 row-start-2 -ml-1 data-[floating]:bg-background data-[floating]:data-[floating]:rounded-md data-[floating]:border data-[floating]:p-1 data-[floating]:shadow-sm"
+      className="text-muted-foreground flex gap-1 col-start-3 row-start-2 -ml-1 data-[floating]:bg-background data-[floating]:absolute data-[floating]:rounded-md data-[floating]:border data-[floating]:p-1 data-[floating]:shadow-sm"
     >
       {/* <MessagePrimitive.If speaking={false}>
         <ActionBarPrimitive.Speak asChild>
