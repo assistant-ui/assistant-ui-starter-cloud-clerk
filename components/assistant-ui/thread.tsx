@@ -28,7 +28,7 @@ export const Thread: FC = () => {
     <ThreadPrimitive.Root
       className="bg-background box-border h-full"
       style={{
-        ["--aui-thread-max-width" as string]: "42rem",
+        ["--thread-max-width" as string]: "42rem",
       }}
     >
       <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-scroll scroll-smooth bg-inherit px-4 pt-8">
@@ -46,7 +46,7 @@ export const Thread: FC = () => {
           <div className="min-h-8 flex-grow" />
         </ThreadPrimitive.If>
 
-        <div className="max-w-[var(--aui-thread-max-width)] sticky bottom-0 mt-3 flex w-full flex-col items-center justify-end rounded-t-lg bg-inherit pb-4">
+        <div className="sticky bottom-0 mt-3 flex w-full max-w-[var(--thread-max-width)] flex-col items-center justify-end rounded-t-lg bg-inherit pb-4">
           <ThreadScrollToBottom />
           <Composer />
         </div>
@@ -72,7 +72,7 @@ const ThreadScrollToBottom: FC = () => {
 const ThreadWelcome: FC = () => {
   return (
     <ThreadPrimitive.Empty>
-      <div className="max-w-[var(--aui-thread-max-width)] flex w-full flex-grow flex-col">
+      <div className="flex w-full max-w-[var(--thread-max-width)] flex-grow flex-col">
         <div className="flex w-full flex-grow flex-col items-center justify-center">
           <Avatar>
             <AvatarFallback>C</AvatarFallback>
@@ -157,7 +157,7 @@ const ComposerAction: FC = () => {
 
 const UserMessage: FC = () => {
   return (
-    <MessagePrimitive.Root className="grid auto-rows-auto grid-cols-[minmax(72px,1fr)_auto] gap-y-2 [&>*]:col-start-2 max-w-[var(--aui-thread-max-width)] w-full py-4">
+    <MessagePrimitive.Root className="grid auto-rows-auto grid-cols-[minmax(72px,1fr)_auto] gap-y-2 [&:where(>*)]:col-start-2 w-full max-w-[var(--thread-max-width)] py-4">
       <UserActionBar />
 
       <div className="bg-muted text-foreground max-w-[calc(var(--thread-max-width)*0.8)] break-words rounded-3xl px-5 py-2.5 col-start-2 row-start-2">
@@ -187,7 +187,7 @@ const UserActionBar: FC = () => {
 
 const EditComposer: FC = () => {
   return (
-    <ComposerPrimitive.Root className="bg-muted max-w-[var(--aui-thread-max-width)] my-4 flex w-full flex-col gap-2 rounded-xl">
+    <ComposerPrimitive.Root className="bg-muted my-4 flex w-full max-w-[var(--thread-max-width)] flex-col gap-2 rounded-xl">
       <ComposerPrimitive.Input className="text-foreground flex h-8 w-full resize-none bg-transparent p-4 pb-0 outline-none" />
 
       <div className="mx-3 mb-3 flex items-center justify-center gap-2 self-end">
@@ -204,7 +204,7 @@ const EditComposer: FC = () => {
 
 const AssistantMessage: FC = () => {
   return (
-    <MessagePrimitive.Root className="grid grid-cols-[auto_auto_1fr] grid-rows-[auto_1fr] max-w-[var(--aui-thread-max-width)] relative w-full py-4">
+    <MessagePrimitive.Root className="grid grid-cols-[auto_auto_1fr] grid-rows-[auto_1fr] relative w-full max-w-[var(--thread-max-width)] py-4">
       <Avatar className="col-start-1 row-span-full row-start-1 mr-4">
         <AvatarFallback>A</AvatarFallback>
       </Avatar>
@@ -226,7 +226,7 @@ const AssistantActionBar: FC = () => {
       hideWhenRunning
       autohide="not-last"
       autohideFloat="single-branch"
-      className="text-muted-foreground flex gap-1 col-start-3 row-start-2 -ml-1"
+      className="text-muted-foreground flex gap-1 col-start-3 row-start-2 -ml-1 data-[floating]:bg-background data-[floating]:data-[floating]:rounded-md data-[floating]:border data-[floating]:p-1 data-[floating]:shadow-sm"
     >
       {/* <MessagePrimitive.If speaking={false}>
         <ActionBarPrimitive.Speak asChild>
