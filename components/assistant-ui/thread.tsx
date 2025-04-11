@@ -25,7 +25,7 @@ import { TooltipIconButton } from "@/components/assistant-ui/tooltip-icon-button
 export const Thread: FC = () => {
   return (
     <ThreadPrimitive.Root
-      className="bg-background box-border h-full flex flex-col overflow-hidden"
+      className="bg-background box-border flex h-full flex-col overflow-hidden"
       style={{
         ["--thread-max-width" as string]: "42rem",
       }}
@@ -220,20 +220,6 @@ const AssistantActionBar: FC = () => {
       autohideFloat="single-branch"
       className="text-muted-foreground flex gap-1 col-start-3 row-start-2 -ml-1 data-[floating]:bg-background data-[floating]:absolute data-[floating]:rounded-md data-[floating]:border data-[floating]:p-1 data-[floating]:shadow-sm"
     >
-      {/* <MessagePrimitive.If speaking={false}>
-        <ActionBarPrimitive.Speak asChild>
-          <TooltipIconButton tooltip="Read aloud">
-            <AudioLinesIcon />
-          </TooltipIconButton>
-        </ActionBarPrimitive.Speak>
-      </MessagePrimitive.If>
-      <MessagePrimitive.If speaking>
-        <ActionBarPrimitive.StopSpeaking asChild>
-          <TooltipIconButton tooltip="Stop">
-            <StopCircleIcon />
-          </TooltipIconButton>
-        </ActionBarPrimitive.StopSpeaking>
-      </MessagePrimitive.If> */}
       <ActionBarPrimitive.Copy asChild>
         <TooltipIconButton tooltip="Copy">
           <MessagePrimitive.If copied>

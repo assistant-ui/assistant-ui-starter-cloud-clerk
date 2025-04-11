@@ -1,6 +1,7 @@
 import { openai } from "@ai-sdk/openai";
 import { jsonSchema, streamText } from "ai";
 
+export const runtime = "edge";
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
@@ -9,12 +10,15 @@ export async function POST(req: Request) {
   const result = streamText({
     model: openai("gpt-4o"),
     messages,
+    // forward system prompt and tools from the frontend
     system,
     tools: Object.fromEntries(
-      Object.keys(tools).map((name) => [
+      Object.entries<{ parameters: unknown }>(tools).map(([name, tool]) => [
         name,
-        { ...tools[name], parameters: jsonSchema(tools[name].parameters) },
-      ])
+        {
+          parameters: jsonSchema(tool.parameters!),
+        },
+      ]),
     ),
   });
 
