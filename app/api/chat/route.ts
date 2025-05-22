@@ -17,6 +17,7 @@ export async function POST(req: Request) {
     tools: {
       ...frontendTools(tools),
     },
+    onError: console.log,
   });
 
   return result.toDataStreamResponse();
