@@ -21,17 +21,28 @@ import {
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
-
-const cloud = new AssistantCloud({
-  baseUrl: process.env["NEXT_PUBLIC_ASSISTANT_BASE_URL"]!,
-  anonymous: true,
-});
+import { useAuth } from "@clerk/nextjs";
+import { SignedIn, UserButton, useUser } from "@clerk/nextjs";
 
 export const Assistant = () => {
+  const { getToken } = useAuth();
+  const { user } = useUser();
+
+  const cloud = new AssistantCloud({
+    baseUrl: process.env["NEXT_PUBLIC_ASSISTANT_BASE_URL"]!,
+    authToken: async () => {
+      const token = await getToken({ template: "assistant-ui" });
+
+      if (!token) throw new Error("Missing Clerk JWT");
+
+      return token;
+    },
+  });
+
   const runtime = useChatRuntime({
     cloud,
     transport: new AssistantChatTransport({
-      api: "/api/chat", // API route
+      api: "/api/chat",
     }),
   });
 
@@ -64,6 +75,17 @@ export const Assistant = () => {
                   </BreadcrumbItem>
                 </BreadcrumbList>
               </Breadcrumb>
+
+              <div className="ml-auto">
+                <SignedIn>
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm text-muted-foreground">
+                      {`Welcome${user?.firstName ? `, ${user.firstName}` : ""}`}
+                    </span>
+                    <UserButton />
+                  </div>
+                </SignedIn>
+              </div>
             </header>
             <div className="flex-1 overflow-hidden">
               <Thread />
