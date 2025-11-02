@@ -26,9 +26,7 @@ Follow the docs guide to connect Clerk to Assistant Cloud (JWT template + Auth R
      "aud": "assistant-ui"
    }
 ```
-   <Callout>
-     <b>Note:</b> The aud claim ensures that the JWT is only valid for the assistant-ui API.
-   </Callout>
+   > **Note:** The aud claim ensures that the JWT is only valid for the assistant-ui API.
 
 3. You can leave everything else as default. Take note of the "Issuer" and "JWKS Endpoint" fields.
 4. In the assistant-cloud dashboard settings, navigate to the "Auth Rules" tab and create a new rule. 
@@ -45,7 +43,7 @@ Copy the example env file and then edit your values:
 
 ```bash
 cp .env.example .env.local   # macOS/Linux
-copy .env.example .env.local # or on Windows (PowerShell)
+copy .env.example .env.local # or on Windows
 ```
 
 ### 4. Install Dependencies
