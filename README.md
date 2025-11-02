@@ -1,4 +1,6 @@
-This is the [assistant-ui](https://github.com/Yonom/assistant-ui) starter project with [Assistant Cloud](https://cloud.assistant-ui.com) integration.
+# Assistant UI Starter (Assistant Cloud + Clerk)
+
+This is the [assistant-ui](https://assistant-ui.com) starter project with [Assistant Cloud](https://cloud.assistant-ui.com) integration and [Clerk](https://clerk.com) for authentication.
 
 ## Getting Started
 
@@ -8,48 +10,59 @@ This is the [assistant-ui](https://github.com/Yonom/assistant-ui) starter projec
 2. Create a new project in your Assistant Cloud dashboard
 3. Navigate to your project settings to get:
    - Your Assistant Cloud API URL
-   - Your Assistant Cloud API Key
 
-### 2. Configure Environment Variables
+### 2. Configure Assistant Cloud + Clerk
 
-Create a `.env.local` file in the root directory and add your credentials:
+Follow the docs guide to connect Clerk to Assistant Cloud (JWT template + Auth Rule): https://www.assistant-ui.com/docs/cloud/authorization#setting-up-the-clerk-auth-provider
 
+<details>
+<summary>Setting up the Clerk Auth Provider</summary>
+
+1. Go to the Clerk dashboard and under "Configure" tab, "JWT Templates" section, create a new template. Choose a blank template and name it "assistant-ui".
+
+2. As the "Claims" field, enter the following:
+```json
+   {
+     "aud": "assistant-ui"
+   }
 ```
-# Provider API Key
-OPENAI_API_KEY=your-openai-api-key
+   > **Note:** The aud claim ensures that the JWT is only valid for the assistant-ui API.
 
-# Assistant Cloud
-NEXT_PUBLIC_ASSISTANT_BASE_URL=your-assistant-cloud-url
-ASSISTANT_API_KEY=your-assistant-cloud-api-key
-```
+3. You can leave everything else as default. Take note of the "Issuer" and "JWKS Endpoint" fields.
+4. In the assistant-cloud dashboard settings, navigate to the "Auth Rules" tab and create a new rule. 
+5. Choose "Clerk" and enter the Issuer and JWKS Endpoint from the previous step. As the "Audience" field, enter "assistant-ui".
+</details>
 
-> **Note**: You can copy `.env.example` to `.env.local` and fill in your values.
 
-### 3. Install Dependencies
+### 3. Configure Environment Variables
+
+
+Copy the example env file and then edit your values:
+
+
 
 ```bash
-npm install
-# or
-yarn install
-# or
+cp .env.example .env.local   # macOS/Linux
+copy .env.example .env.local # or on Windows
+```
+
+### 4. Install Dependencies
+
+```bash
 pnpm install
-# or
-bun install
 ```
 
-### 4. Run the Development Server
+### 5. Run the Development Server
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 with your browser to see the result.
+
+- Click “Go to Chat”
+  - If you’re signed out, you’ll be redirected to the embedded sign-in page
+  - After sign-in, you’ll be returned to `/chat`
 
 ## Development
 
@@ -57,7 +70,11 @@ You can start customizing the UI by modifying components in the `components/assi
 
 ### Key Files
 
-- `app/assistant.tsx` - Renders the chat interface and sets up the runtime provider with Assistant Cloud
-- `app/api/chat/route.ts` - Chat API endpoint
-- `components/assistant-ui/thread.tsx` - Chat thread component
-- `components/app-sidebar.tsx` - Sidebar with thread list
+- `app/page.tsx` — Public landing page (top-right auth controls, “Go to Chat” CTA)
+- `app/chat/page.tsx` — Protected chat page (Assistant UI)
+- `app/assistant.tsx` — Assistant runtime setup (Assistant Cloud + Clerk token)
+- `app/api/chat/route.ts` — Demo chat API endpoint using OpenAI
+- `app/sign-in/[[...sign-in]]/page.tsx` — Embedded Clerk sign-in
+- `app/sign-up/[[...sign-up]]/page.tsx` — Embedded Clerk sign-up
+- `app/layout.tsx` — App wrapper with `ClerkProvider` (embedded routes configured)
+- `middleware.ts` — Protects `/chat` and `/api`, keeps `/` public
