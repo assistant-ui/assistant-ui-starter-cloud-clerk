@@ -18,9 +18,9 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "^2.0.46",
-    "@assistant-ui/react": "^0.11.28",
-    "@assistant-ui/react-ai-sdk": "^1.1.5",
-    "@assistant-ui/react-markdown": "^0.11.1",
+    "@assistant-ui/react": "^0.11.37",
+    "@assistant-ui/react-ai-sdk": "^1.1.9",
+    "@assistant-ui/react-markdown": "^0.11.4",
     "@clerk/nextjs": "^6.33.5",
     "@clerk/themes": "^2.4.27",
     "@radix-ui/react-avatar": "^1.1.10",
