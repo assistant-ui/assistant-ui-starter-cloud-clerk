@@ -21,25 +21,23 @@ Follow the docs guide to connect Clerk to Assistant Cloud (JWT template + Auth R
 1. Go to the Clerk dashboard and under "Configure" tab, "JWT Templates" section, create a new template. Choose a blank template and name it "assistant-ui".
 
 2. As the "Claims" field, enter the following:
+
 ```json
-   {
-     "aud": "assistant-ui"
-   }
+{
+  "aud": "assistant-ui"
+}
 ```
-   > **Note:** The aud claim ensures that the JWT is only valid for the assistant-ui API.
+
+> **Note:** The aud claim ensures that the JWT is only valid for the assistant-ui API.
 
 3. You can leave everything else as default. Take note of the "Issuer" and "JWKS Endpoint" fields.
-4. In the assistant-cloud dashboard settings, navigate to the "Auth Rules" tab and create a new rule. 
+4. In the assistant-cloud dashboard settings, navigate to the "Auth Rules" tab and create a new rule.
 5. Choose "Clerk" and enter the Issuer and JWKS Endpoint from the previous step. As the "Audience" field, enter "assistant-ui".
 </details>
 
-
 ### 3. Configure Environment Variables
 
-
 Copy the example env file and then edit your values:
-
-
 
 ```bash
 cp .env.example .env.local   # macOS/Linux
