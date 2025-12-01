@@ -44,7 +44,7 @@ export default function Home() {
 
       <section className="flex flex-1 items-center justify-center px-6">
         <div className="mx-auto flex max-w-2xl flex-col items-center gap-6 text-center">
-          <h1 className="text-3xl font-semibold tracking-tight">
+          <h1 className="font-semibold text-3xl tracking-tight">
             Assistant UI + Clerk Starter
           </h1>
 
