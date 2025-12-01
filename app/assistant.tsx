@@ -79,7 +79,7 @@ export const Assistant = () => {
               <div className="ml-auto">
                 <SignedIn>
                   <div className="flex items-center gap-3">
-                    <span className="text-sm text-muted-foreground">
+                    <span className="text-muted-foreground text-sm">
                       {`Welcome${user?.firstName ? `, ${user.firstName}` : ""}`}
                     </span>
                     <UserButton />
