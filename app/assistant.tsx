@@ -5,6 +5,7 @@ import {
   useChatRuntime,
   AssistantChatTransport,
 } from "@assistant-ui/react-ai-sdk";
+import { lastAssistantMessageIsCompleteWithToolCalls } from "ai";
 import { Thread } from "@/components/assistant-ui/thread";
 import {
   SidebarInset,
@@ -41,6 +42,7 @@ export const Assistant = () => {
 
   const runtime = useChatRuntime({
     cloud,
+    sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithToolCalls,
     transport: new AssistantChatTransport({
       api: "/api/chat",
     }),
@@ -79,7 +81,7 @@ export const Assistant = () => {
               <div className="ml-auto">
                 <SignedIn>
                   <div className="flex items-center gap-3">
-                    <span className="text-sm text-muted-foreground">
+                    <span className="text-muted-foreground text-sm">
                       {`Welcome${user?.firstName ? `, ${user.firstName}` : ""}`}
                     </span>
                     <UserButton />
